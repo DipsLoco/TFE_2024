@@ -9,9 +9,12 @@ class WorkoutAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'description', 'duration', 'available', 'created_at', 'image']
 
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'workout', 'datetime', 'available', 'location']
+    list_display = ['id', 'workout_title', 'datetime', 'available', 'location']
     filter_horizontal = ['participants']
-
+    
+    def workout_title(self, obj):
+        return obj.workout.title
+    workout_title.short_description = 'Titre du Workout'
 class CoachAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'user', 'available']
     filter_horizontal = ['specialties']
@@ -20,7 +23,7 @@ class LocationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'address', 'city', 'state', 'postal_code']
 
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'description', 'price', 'duration']
+    list_display = ['id', 'name', 'description', 'price', 'duration', 'image']
 
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'plan', 'start_date', 'payment_status']
