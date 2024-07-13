@@ -108,6 +108,9 @@ class Plan(models.Model):
     image = models.ImageField(upload_to='plan_images/', blank=True, null=True)  # Image du plan
     is_available = models.BooleanField(default=False) # Plan availability
 
+    def __str__(self):
+        return self.name
+
 class Subscription(models.Model):
     PAYMENT_STATUS_CHOICES = [
         ('pending', 'En Attente'),

@@ -23,7 +23,7 @@ class LocationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'address', 'city', 'state', 'postal_code']
 
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'description', 'price', 'duration', 'image']
+    list_display = ['id', 'name','is_available', 'description', 'price', 'duration', 'image']
 
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'plan', 'start_date', 'payment_status']
