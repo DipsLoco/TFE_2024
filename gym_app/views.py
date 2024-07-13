@@ -7,3 +7,6 @@ def home(request):
     plans = Plan.objects.filter(is_available=True)
     workouts = Workout.objects.filter(available=True)
     return render(request, 'home.html', {'plans': plans, 'workouts': workouts})
+
+def about(request):
+    return render(request, 'about.html')
