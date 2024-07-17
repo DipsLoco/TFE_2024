@@ -2,6 +2,11 @@ from django.shortcuts import redirect, render
 from gym_app.models import Plan, Workout
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
+from django import forms
+
 
 # Vue pour la page d'accueil
 def home(request):
@@ -40,5 +45,21 @@ def logout_user(request):
     return redirect('home')
 
 # Vue pour l'inscription d'un nouvel utilisateur
-def register(request):
-    return render(request, 'administration/register.html')
+def register_user(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, ('Vous êtes inscrit'))
+                return redirect('home')
+        else:
+            messages.error(request, ('Erreur lors de l\'inscription'))
+            return redirect('register')
+    else:
+        form = SignUpForm()
+    return render(request, 'administration/register.html', {'form': form})

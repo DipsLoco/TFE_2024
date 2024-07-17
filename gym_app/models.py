@@ -47,6 +47,18 @@ class Workout(models.Model):
     available = models.BooleanField(default=True)  # Availability of the workout
     created_at = models.DateTimeField(auto_now_add=True)  # Creation date
     image = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image1 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image2 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
+    image3 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
+    image4 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image5 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
+    image6 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image7 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
+    image8 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image9 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+    image10 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
+
+
 
     def __str__(self):
         return self.title
