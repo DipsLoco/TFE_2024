@@ -23,7 +23,10 @@ class User(AbstractUser):
     address = models.CharField(max_length=255)  # Adresse postale
     postal_code = models.IntegerField(default=1000)  # Code postal
     is_premium = models.BooleanField(default=False)  # Statut premium
+    date_joined = models.DateTimeField(default=timezone.now)  # Date de création du compte
     social_url = models.URLField(blank=True, null=True)  # URL des réseaux sociaux
+    image = models.ImageField(upload_to='membre_images/', blank=True, null=True)  # Image du membre
+
 
     groups = models.ManyToManyField(
         Group,
@@ -40,28 +43,29 @@ class User(AbstractUser):
     # password = models.CharField(max_length=128, default='default_password')
 
 
+
+
 class Workout(models.Model):
-    title = models.CharField(max_length=200)  # Title of the workout
-    description = models.TextField()  # Description of the workout
-    duration = models.DurationField()  # Duration of the workout
-    available = models.BooleanField(default=True)  # Availability of the workout
-    created_at = models.DateTimeField(auto_now_add=True)  # Creation date
-    image = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image1 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image2 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
-    image3 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
-    image4 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image5 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
-    image6 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image7 = models.ImageField(upload_to='workout_images/', blank=True, null=True)
-    image8 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image9 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-    image10 = models.ImageField(upload_to='workout_images/', blank=True, null=True)  # Image de la séance
-
-
+    title = models.CharField(max_length=200)  # Titre de la séance
+    description = models.TextField()  # Description de la séance
+    duration = models.DurationField()  # Durée de la séance
+    available = models.BooleanField(default=True)  # Disponibilité de la séance
+    created_at = models.DateTimeField(auto_now_add=True)  # Date de création
 
     def __str__(self):
         return self.title
+
+    def get_main_image(self):
+        return self.images.first()  # Retourne la première image associée à ce Workout
+
+class WorkoutImage(models.Model):
+    workout = models.ForeignKey(Workout, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='workout_images/')
+    description = models.CharField(max_length=255, blank=True, null=True)
+
+    def __str__(self):
+        return self.description if self.description else f'Image for {self.workout.title}'
+
 
 class Location(models.Model):
     name = models.CharField(max_length=100)  # Name of the location
@@ -111,6 +115,7 @@ class Coach(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # User ID
     specialties = models.ManyToManyField(Workout, related_name='specialties')  # Coach's specialties
     available = models.BooleanField(default=False)  # Coach's availability
+    image = models.ImageField(upload_to='coach_images/', blank=True, null=True)  # Image du coach
 
 class Plan(models.Model):
     name = models.CharField(max_length=100)  # Name of the plan

@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render
-from gym_app.models import Plan, Workout
+from django.shortcuts import get_object_or_404, redirect, render
+from gym_app.models import Coach, Plan, Review, Workout, WorkoutImage, Review
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -8,17 +8,36 @@ from .forms import SignUpForm
 from django import forms
 
 
+
+
+# Vue pour la page à propos
+def about(request):
+    return render(request, 'about.html')
+
 # Vue pour la page d'accueil
 def home(request):
     # Récupère tous les plans disponibles
     plans = Plan.objects.filter(is_available=True)
     # Récupère tous les workouts disponibles
     workouts = Workout.objects.filter(available=True)
-    return render(request, 'home.html', {'plans': plans, 'workouts': workouts})
+    # Récupère tous les coachs
+    coachs = Coach.objects.all()
+    # Récupère tous les commentaires
+    reviews = Review.objects.all()
+    return render(request, 'home.html', {'plans': plans, 'workouts': workouts, 'coachs': coachs, 'reviews': reviews,})
 
-# Vue pour la page à propos
-def about(request):
-    return render(request, 'about.html')
+
+
+# Vue pour la page faq
+def faq(request):
+    return render(request,'faq.html')
+
+# Vue pour la page Abonnement
+def plan(request,pk):
+    plan = Plan.objects.get(id=pk)
+    return render(request, 'plan.html', {'plan': plan})
+
+
 
 # Vue pour la connexion utilisateur
 def login_user(request):
@@ -63,3 +82,8 @@ def register_user(request):
     else:
         form = SignUpForm()
     return render(request, 'administration/register.html', {'form': form})
+
+def workout_detail(request, pk):
+    workout = get_object_or_404(Workout, pk=pk)
+    images = WorkoutImage.objects.filter(workout=pk)
+    return render(request, 'workout.html', {'workout': workout, 'images': images})

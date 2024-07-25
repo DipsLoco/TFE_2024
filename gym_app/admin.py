@@ -1,12 +1,16 @@
 from django.contrib import admin
-from .models import User, Workout, Booking, Coach, Location, Plan, Subscription, Review
+from .models import User, Workout, Booking, Coach, Location, Plan, Subscription, Review, WorkoutImage
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'role', 'last_name', 'first_name', 'birth_date', 'email', 'phone', 'address', 'postal_code', 'is_premium', 'social_url']
 
 
 class WorkoutAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'description', 'duration', 'available', 'created_at', 'image']
+    list_display = ['id', 'title', 'description', 'duration', 'available', 'created_at']
+
+class WorkoutImageInline(admin.TabularInline):
+    model = WorkoutImage
+    extra = 1
 
 class BookingAdmin(admin.ModelAdmin):
     list_display = ['id', 'workout_title', 'datetime', 'available', 'location']
@@ -33,6 +37,7 @@ class ReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Workout, WorkoutAdmin)
+admin.site.register(WorkoutImage)
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Coach, CoachAdmin)
 admin.site.register(Location, LocationAdmin)
