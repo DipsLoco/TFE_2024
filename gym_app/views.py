@@ -1,14 +1,15 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from gym_app.models import Coach, Plan, Review, Workout, WorkoutImage, Review
+from gym_app.models import Booking, Coach, Plan, Review, Workout, WorkoutImage
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
-
-
-
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
 
 # Vue pour la page à propos
 def about(request):
@@ -16,28 +17,21 @@ def about(request):
 
 # Vue pour la page d'accueil
 def home(request):
-    # Récupère tous les plans disponibles
     plans = Plan.objects.filter(is_available=True)
-    # Récupère tous les workouts disponibles
     workouts = Workout.objects.filter(available=True)
-    # Récupère tous les coachs
     coachs = Coach.objects.all()
-    # Récupère tous les commentaires
     reviews = Review.objects.all()
-    return render(request, 'home.html', {'plans': plans, 'workouts': workouts, 'coachs': coachs, 'reviews': reviews,})
-
-
+    bookings = Booking.objects.select_related('coach', 'location').all()
+    return render(request, 'home.html', {'plans': plans, 'workouts': workouts, 'coachs': coachs, 'reviews': reviews, 'bookings': bookings})
 
 # Vue pour la page faq
 def faq(request):
-    return render(request,'faq.html')
+    return render(request, 'faq.html')
 
 # Vue pour la page Abonnement
-def plan(request,pk):
+def plan(request, pk):
     plan = Plan.objects.get(id=pk)
     return render(request, 'plan.html', {'plan': plan})
-
-
 
 # Vue pour la connexion utilisateur
 def login_user(request):
@@ -47,20 +41,19 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, ('Vous êtes connecté'))
+            messages.success(request, f'Bienvenue, {user.username}!')
             return redirect('home')
         else:
-            messages.error(request, ('Nom d\'utilisateur ou mot de passe incorrect'))
+            messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect')
             return render(request, 'administration/login.html')
     else:        
         return render(request, 'administration/login.html')
 
-
-
 # Vue pour la déconnexion utilisateur
 def logout_user(request):
+    user = request.user
     logout(request)
-    messages.success(request, ("Vous avez été déconnecté"))
+    messages.success(request, f'Aurevoir et à bientôt, {user.username}!')
     return redirect('home')
 
 # Vue pour l'inscription d'un nouvel utilisateur
@@ -74,16 +67,53 @@ def register_user(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, ('Vous êtes inscrit'))
+                messages.success(request, f'Vous êtes maintenant inscrit, {user.username}!')
                 return redirect('home')
         else:
-            messages.error(request, ('Erreur lors de l\'inscription'))
+            messages.error(request, 'Erreur lors de l\'inscription')
             return redirect('register')
     else:
         form = SignUpForm()
     return render(request, 'administration/register.html', {'form': form})
 
+User = get_user_model()
+
+@receiver(post_save, sender=User)
+def create_or_update_coach(sender, instance, created, **kwargs):
+    if instance.role == 'coach':
+        Coach.objects.update_or_create(
+            user=instance,
+            defaults={
+                'username': instance.username,
+                'image': instance.image
+            }
+        )
+    else:
+        Coach.objects.filter(user=instance).delete()
+
 def workout_detail(request, pk):
     workout = get_object_or_404(Workout, pk=pk)
     images = WorkoutImage.objects.filter(workout=pk)
     return render(request, 'workout.html', {'workout': workout, 'images': images})
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    response = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    return JsonResponse(response)
+
+def validate_password(request):
+    password = request.GET.get('password', None)
+    conditions = [
+        len(password) >= 8,
+        any(c.islower() for c in password),
+        any(c.isupper() for c in password),
+        any(c.isdigit() for c in password),
+        any(not c.isalnum() for c in password)
+    ]
+    response = {
+        'is_valid': all(conditions),
+        'conditions': conditions
+    }
+    return JsonResponse(response)

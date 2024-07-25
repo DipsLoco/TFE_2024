@@ -13,6 +13,8 @@ urlpatterns = [
     path('plan/<int:pk>', views.plan, name='plan'),
     path('register/', views.register_user, name='register'),
     path('workout/<int:pk>/', views.workout_detail, name='workout_detail'),
+    path('validate-username/', views.validate_username, name='validate_username'),
+    path('validate-password/', views.validate_password, name='validate_password'),
 
     
     

@@ -2,8 +2,7 @@ from django.contrib import admin
 from .models import User, Workout, Booking, Coach, Location, Plan, Subscription, Review, WorkoutImage
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'role', 'last_name', 'first_name', 'birth_date', 'email', 'phone', 'address', 'postal_code', 'is_premium', 'social_url']
-
+    list_display = ['id', 'username', 'role', 'last_name', 'first_name', 'birth_date', 'email', 'phone', 'address', 'postal_code', 'is_premium', 'social_url', 'date_joined']
 
 class WorkoutAdmin(admin.ModelAdmin):
     list_display = ['id', 'title', 'description', 'duration', 'available', 'created_at']
@@ -19,15 +18,16 @@ class BookingAdmin(admin.ModelAdmin):
     def workout_title(self, obj):
         return obj.workout.title
     workout_title.short_description = 'Titre du Workout'
+
 class CoachAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'user', 'available']
+    list_display = ['id', 'username', 'user', 'available', 'exp']
     filter_horizontal = ['specialties']
 
 class LocationAdmin(admin.ModelAdmin):
     list_display = ['id', 'name', 'address', 'city', 'state', 'postal_code']
 
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name','is_available', 'description', 'price', 'duration', 'image']
+    list_display = ['id', 'name', 'is_available', 'description', 'price', 'duration', 'image']
 
 class SubscriptionAdmin(admin.ModelAdmin):
     list_display = ['id', 'user', 'plan', 'start_date', 'payment_status']

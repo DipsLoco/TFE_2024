@@ -122,10 +122,10 @@
 
     <!-- Script pour défilement en douceur -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var links = document.querySelectorAll('a[href*="#contact"]');
-            links.forEach(function(link) {
-                link.addEventListener("click", function(e) {
+            links.forEach(function (link) {
+                link.addEventListener("click", function (e) {
                     var url = new URL(this.href);
                     if (url.pathname === window.location.pathname) {
                         e.preventDefault();

@@ -1,3 +1,5 @@
+# models.py
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed
@@ -5,7 +7,6 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 
 class User(AbstractUser):
     ROLE_CHOICES = [
@@ -27,7 +28,6 @@ class User(AbstractUser):
     social_url = models.URLField(blank=True, null=True)  # URL des réseaux sociaux
     image = models.ImageField(upload_to='membre_images/', blank=True, null=True)  # Image du membre
 
-
     groups = models.ManyToManyField(
         Group,
         related_name='custom_user_groups',  # Nom unique pour éviter les conflits
@@ -38,12 +38,16 @@ class User(AbstractUser):
         related_name='custom_user_permissions',  # Nom unique pour éviter les conflits
         blank=True
     )
-    
-    # Ajouter un mot de passe par défaut
-    # password = models.CharField(max_length=128, default='default_password')
 
+class Location(models.Model):
+    name = models.CharField(max_length=100)  # Nom de la localisation
+    address = models.CharField(max_length=255)  # Adresse
+    city = models.CharField(max_length=100)  # Ville
+    state = models.BooleanField()  # État (si la localisation est active ou non)
+    postal_code = models.IntegerField()  # Code postal
 
-
+    def __str__(self):
+        return self.name
 
 class Workout(models.Model):
     title = models.CharField(max_length=200)  # Titre de la séance
@@ -51,6 +55,8 @@ class Workout(models.Model):
     duration = models.DurationField()  # Durée de la séance
     available = models.BooleanField(default=True)  # Disponibilité de la séance
     created_at = models.DateTimeField(auto_now_add=True)  # Date de création
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)  # Localisation de la séance
+    coachs = models.ManyToManyField('Coach', related_name='workouts')  # Coachs de la séance
 
     def __str__(self):
         return self.title
@@ -65,17 +71,6 @@ class WorkoutImage(models.Model):
 
     def __str__(self):
         return self.description if self.description else f'Image for {self.workout.title}'
-
-
-class Location(models.Model):
-    name = models.CharField(max_length=100)  # Name of the location
-    address = models.CharField(max_length=255)  # Address
-    city = models.CharField(max_length=100)  # City
-    state = models.BooleanField()  # State (whether the location is active or not)
-    postal_code = models.IntegerField()  # Postal code
-
-    def __str__(self):
-        return self.name
 
 class Booking(models.Model):
     workout = models.ForeignKey('Workout', on_delete=models.CASCADE)  # ID d'un workout
@@ -110,20 +105,26 @@ def validate_participant_limit(sender, **kwargs):
 
 m2m_changed.connect(validate_participant_limit, sender=Booking.participants.through)
 
+
 class Coach(models.Model):
-    username = models.CharField(max_length=50, unique=True)  # Username of the coach
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # User ID
-    specialties = models.ManyToManyField(Workout, related_name='specialties')  # Coach's specialties
-    available = models.BooleanField(default=False)  # Coach's availability
+    username = models.CharField(max_length=50, unique=True)  # Nom d'utilisateur du coach
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  # ID de l'utilisateur
+    specialties = models.ManyToManyField(Workout, related_name='specialties')  # Spécialités du coach
+    available = models.BooleanField(default=False)  # Disponibilité du coach
     image = models.ImageField(upload_to='coach_images/', blank=True, null=True)  # Image du coach
+    exp = models.PositiveIntegerField(default=0)  # Expérience du coach en années
+
+    def __str__(self):
+        return self.username
+
 
 class Plan(models.Model):
-    name = models.CharField(max_length=100)  # Name of the plan
-    description = models.TextField()  # Description of the plan
-    price = models.IntegerField()  # Price of the plan
-    duration = models.IntegerField()  # Duration of the plan in days
+    name = models.CharField(max_length=100)  # Nom du plan
+    description = models.TextField()  # Description du plan
+    price = models.IntegerField()  # Prix du plan
+    duration = models.IntegerField()  # Durée du plan en jours
     image = models.ImageField(upload_to='plan_images/', blank=True, null=True)  # Image du plan
-    is_available = models.BooleanField(default=False) # Plan availability
+    is_available = models.BooleanField(default=False)  # Disponibilité du plan
 
     def __str__(self):
         return self.name
@@ -134,7 +135,7 @@ class Subscription(models.Model):
         ('paid', 'En ordre de paiement'),
         ('refused', 'Paiement Refusé'),
     ]
-    
+
     user = models.ForeignKey('User', on_delete=models.CASCADE)  # ID de l'utilisateur
     plan = models.ForeignKey('Plan', on_delete=models.CASCADE)  # ID du plan
     start_date = models.DateField()  # Date de début de l'abonnement
@@ -145,9 +146,7 @@ class Subscription(models.Model):
     )  # Statut du paiement
 
 class Review(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # User ID
-    workout = models.ForeignKey(Workout, on_delete=models.CASCADE)  # Workout ID
-    content = models.TextField()  # Review content
-    datetime = models.DateTimeField()  # Date et heure du commentairecontent = models.TextField()  # Contenu du commentaire
-    datetime = models.DateTimeField(default=timezone.now)  # Date et heure du commentaire
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # ID de l'utilisateur
+    workout = models.ForeignKey(Workout, on_delete=models.CASCADE)  # ID de l'entraînement
+    content = models.TextField()  # Contenu de l'avis
+    datetime = models.DateTimeField(default=timezone.now)  # Date et heure de l'avis
