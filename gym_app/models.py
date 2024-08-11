@@ -1,5 +1,3 @@
-# models.py
-
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed, post_save

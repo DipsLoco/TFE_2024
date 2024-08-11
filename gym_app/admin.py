@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import User, Workout, Booking, Coach, Location, Plan, Subscription, Review, WorkoutImage
-from .models import User, Workout, Booking, Coach, Location, Plan, Subscription, Review, WorkoutImage
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ['id', 'username', 'role', 'last_name', 'first_name', 'birth_date', 'email', 'phone', 'address', 'postal_code', 'is_premium', 'social_url', 'date_joined']
@@ -46,7 +45,6 @@ class ReviewAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Workout, WorkoutAdmin)
-admin.site.register(WorkoutImage)
 admin.site.register(WorkoutImage)
 admin.site.register(Booking, BookingAdmin)
 admin.site.register(Coach, CoachAdmin)
