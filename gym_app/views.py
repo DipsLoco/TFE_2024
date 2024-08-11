@@ -1,5 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from gym_app.models import Booking, Coach, Plan, Review, Workout, WorkoutImage
+from django.shortcuts import get_object_or_404, redirect, render
+from gym_app.models import Booking, Coach, Plan, Review, Workout, WorkoutImage
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -36,6 +38,24 @@ def plan(request, pk):
     plan = Plan.objects.get(id=pk)
     return render(request, 'plan.html', {'plan': plan})
 
+# Vue pour la page d'accueil
+def home(request):
+    plans = Plan.objects.filter(is_available=True)
+    workouts = Workout.objects.filter(available=True)
+    coachs = Coach.objects.all()
+    reviews = Review.objects.all()
+    bookings = Booking.objects.select_related('coach', 'location').all()
+    return render(request, 'home.html', {'plans': plans, 'workouts': workouts, 'coachs': coachs, 'reviews': reviews, 'bookings': bookings})
+
+# Vue pour la page faq
+def faq(request):
+    return render(request, 'faq.html')
+
+# Vue pour la page Abonnement
+def plan(request, pk):
+    plan = Plan.objects.get(id=pk)
+    return render(request, 'plan.html', {'plan': plan})
+
 # Vue pour la connexion utilisateur
 def login_user(request):
     if request.method == 'POST':
@@ -45,8 +65,10 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, f'Bienvenue, {user.username}!')
+            messages.success(request, f'Bienvenue, {user.username}!')
             return redirect('home')
         else:
+            messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect')
             messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect')
             return render(request, 'administration/login.html')
     else:        
@@ -55,7 +77,9 @@ def login_user(request):
 # Vue pour la déconnexion utilisateur
 def logout_user(request):
     user = request.user
+    user = request.user
     logout(request)
+    messages.success(request, f'Aurevoir et à bientôt, {user.username}!')
     messages.success(request, f'Aurevoir et à bientôt, {user.username}!')
     return redirect('home')
 
@@ -71,8 +95,10 @@ def register_user(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f'Vous êtes maintenant inscrit, {user.username}!')
+                messages.success(request, f'Vous êtes maintenant inscrit, {user.username}!')
                 return redirect('home')
         else:
+            messages.error(request, 'Erreur lors de l\'inscription')
             messages.error(request, 'Erreur lors de l\'inscription')
             return redirect('register')
     else:

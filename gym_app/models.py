@@ -1,10 +1,11 @@
+# models.py
+
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed, post_save
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.utils import timezone
 from django.dispatch import receiver
-
 
 class User(AbstractUser):
     ROLE_CHOICES = [
@@ -22,6 +23,7 @@ class User(AbstractUser):
     address = models.CharField(max_length=255)  # Adresse postale
     postal_code = models.IntegerField(default=1000)  # Code postal
     is_premium = models.BooleanField(default=False)  # Statut premium
+    date_joined = models.DateTimeField(default=timezone.now)  # Date de création du compte
     date_joined = models.DateTimeField(default=timezone.now)  # Date de création du compte
     social_url = models.URLField(blank=True, null=True)  # URL des réseaux sociaux
     image = models.ImageField(upload_to='membre_images/', blank=True, null=True)  # Image du membre
@@ -102,6 +104,7 @@ def validate_participant_limit(sender, **kwargs):
 m2m_changed.connect(validate_participant_limit, sender=Booking.participants.through)
 
 
+
 class Coach(models.Model):
     username = models.CharField(max_length=50, unique=True)  # Nom d'utilisateur du coach
     user = models.OneToOneField(User, on_delete=models.CASCADE)  # ID de l'utilisateur
@@ -119,7 +122,12 @@ class Plan(models.Model):
     description = models.TextField()  # Description du plan
     price = models.IntegerField()  # Prix du plan
     duration = models.IntegerField()  # Durée du plan en jours
+    name = models.CharField(max_length=100)  # Nom du plan
+    description = models.TextField()  # Description du plan
+    price = models.IntegerField()  # Prix du plan
+    duration = models.IntegerField()  # Durée du plan en jours
     image = models.ImageField(upload_to='plan_images/', blank=True, null=True)  # Image du plan
+    is_available = models.BooleanField(default=False)  # Disponibilité du plan
     is_available = models.BooleanField(default=False)  # Disponibilité du plan
 
     def __str__(self):

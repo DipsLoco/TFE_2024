@@ -22,19 +22,22 @@
                     <h3 class="text-center font-weight-light my-4">Créer un compte</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-success" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    <form id="register-form" method="POST" action="{% url 'register' %}" enctype="multipart/form-data">
                         {% csrf_token %}
                         
                         {% for field in form %}
                             <div class="form-floating mb-3">
                                 {{ field.label_tag }}
                                 {{ field }}
-                                {% if field.help_text %}
-                                    <div class="form-text text-muted">{{ field.help_text|safe }}</div>
-                                {% endif %}
-                                {% for error in field.errors %}
-                                    <div class="text-danger">{{ error }}</div>
-                                {% endfor %}
+                                <div class="form-text text-muted">{{ field.help_text|safe }}</div>
+                                <div class="text-danger">{{ field.errors }}</div>
                             </div>
                         {% endfor %}
                         
@@ -107,4 +110,73 @@
     }
 </style>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gestion des labels
+        var inputs = document.querySelectorAll('input');
+        inputs.forEach(function(input) {
+            input.addEventListener('focus', function() {
+                this.previousElementSibling.style.display = 'none';
+            });
+            input.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.previousElementSibling.style.display = 'block';
+                }
+            });
+        });
+
+        // Validation du nom d'utilisateur
+        document.getElementById('id_username').addEventListener('blur', function() {
+            var username = this.value;
+            if (username) {
+                fetch(`{% url 'validate_username' %}?username=${username}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.is_taken) {
+                            alert('Ce nom d\'utilisateur est déjà pris.');
+                        }
+                    });
+            }
+        });
+
+        // Validation du mot de passe
+        document.getElementById('id_password1').addEventListener('input', function() {
+            var password = this.value;
+            fetch(`{% url 'validate_password' %}?password=${password}`)
+                .then(response => response.json())
+                .then(data => {
+                    var conditions = data.conditions;
+                    var messages = [
+                        'Au moins 8 caractères.',
+                        'Au moins une lettre minuscule.',
+                        'Au moins une lettre majuscule.',
+                        'Au moins un chiffre.',
+                        'Au moins un caractère spécial.'
+                    ];
+                    var message = '';
+                    for (var i = 0; i < conditions.length; i++) {
+                        if (!conditions[i]) {
+                            message += messages[i] + '<br>';
+                        }
+                    }
+                    document.getElementById('password-validation').innerHTML = message;
+                });
+        });
+
+        // Afficher/cacher le mot de passe
+        var passwordToggle = document.getElementById('password-toggle');
+        if (passwordToggle) {
+            passwordToggle.addEventListener('click', function() {
+                var passwordFields = document.querySelectorAll('input[type="password"]');
+                passwordFields.forEach(function(passwordField) {
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text';
+                    } else {
+                        passwordField.type = 'password';
+                    }
+                });
+            });
+        }
+    });
+</script>
 {% endblock %}

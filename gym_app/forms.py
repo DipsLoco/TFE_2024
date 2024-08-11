@@ -47,6 +47,49 @@ class SignUpForm(UserCreationForm):
         required=False,
         widget=forms.FileInput(attrs={'class': 'form-control'})
     )
+    email = forms.EmailField(
+        label="Adresse e-mail",
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Adresse e-mail'})
+    )
+    first_name = forms.CharField(
+        label="Prénom",
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Prénom'})
+    )
+    last_name = forms.CharField(
+        label="Nom de famille",
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nom de famille'})
+    )
+    birth_date = forms.DateField(
+        label="Date de naissance",
+        widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Date de naissance', 'type': 'date'})
+    )
+    phone = forms.CharField(
+        label="Numéro de téléphone",
+        max_length=15,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Numéro de téléphone'})
+    )
+    address = forms.CharField(
+        label="Adresse",
+        max_length=255,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Adresse'})
+    )
+    postal_code = forms.CharField(
+        label="Code postal",
+        max_length=10,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Code postal'})
+    )
+    city = forms.CharField(
+        label="Ville",
+        max_length=100,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ville'})
+    )
+    image = forms.ImageField(
+        label="Image de profil",
+        required=False,
+        widget=forms.FileInput(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = get_user_model()
@@ -58,6 +101,9 @@ class SignUpForm(UserCreationForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
         
         self.fields['username'].widget.attrs['class'] = 'form-control'
+        self.fields['username'].widget.attrs['placeholder'] = 'Nom d\'utilisateur'
+        self.fields['username'].label = 'Nom d\'utilisateur'
+        self.fields['username'].help_text = 'Requis. 150 caractères ou moins. Lettres, chiffres et @/./+/-/_ uniquement.'
         self.fields['username'].widget.attrs['placeholder'] = 'Nom d\'utilisateur'
         self.fields['username'].label = 'Nom d\'utilisateur'
         self.fields['username'].help_text = 'Requis. 150 caractères ou moins. Lettres, chiffres et @/./+/-/_ uniquement.'
