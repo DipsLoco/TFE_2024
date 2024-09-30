@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.7">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0" version="24.7.7">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2047" dy="1286" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2980" dy="1476" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -31,14 +31,14 @@
         <mxCell id="title5" value="WorkoutSchedule" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="100" y="-70" width="180" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="10" value="&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;id : Integer&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;workout : Workout&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;start_time : DateTime&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;end_time : DateTime&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;location : Location&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;coach : Coach&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="160" y="-30" width="180" height="160" as="geometry" />
+        <mxCell id="10" value="&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;id : Integer&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;workout : Workout&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;start_time : DateTime&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;end_time : DateTime&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;location : Location&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;coach : Coach&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;participants : List&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;available : Boolean&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;div&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;expired : Boolean&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;complet : Boolean&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="160" y="-30" width="180" height="180" as="geometry" />
         </mxCell>
-        <mxCell id="title6" value="Booking" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
-          <mxGeometry x="827" y="-160" width="180" height="30" as="geometry" />
+        <mxCell id="title6" value="WorkoutParticipation" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
+          <mxGeometry x="686" y="-105" width="180" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="12" value="&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;id : Integer&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;schedule : WorkoutSchedule&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;participants : List&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;coach : Coach&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;location : Location&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;datetime : DateTime&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;available : Boolean&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;expired : Boolean&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="780" y="-120" width="160" height="200" as="geometry" />
+        <mxCell id="12" value="&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;workout_schedule : WorkoutSchedule&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;participants : List&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;present : Boolean&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="690" y="-61" width="206" height="146" as="geometry" />
         </mxCell>
         <mxCell id="title7" value="Coach" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="620" y="220" width="180" height="30" as="geometry" />
@@ -94,11 +94,13 @@
         <mxCell id="30" value="&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;name : String&lt;/span&gt;&lt;br style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;partner_company : String&lt;/span&gt;&lt;br style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;price : Integer&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="360" y="460" width="180" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="2" target="12" edge="1">
+        <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.988;exitY=0.068;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="860" y="140" />
+              <mxPoint x="62" y="69" />
             </Array>
+            <mxPoint x="64" y="68" as="sourcePoint" />
+            <mxPoint x="160" y="68" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="33" value="1" style="text;html=1;whiteSpace=wrap;" parent="32" vertex="1">
@@ -122,13 +124,15 @@
         <mxCell id="37" value="0..*" style="text;html=1;whiteSpace=wrap;" parent="35" vertex="1">
           <mxGeometry x="1" y="0.5" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" edge="1">
+        <mxCell id="38" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0.917;entryY=1.024;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="title12">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="60" y="190" as="sourcePoint" />
-            <mxPoint x="810" y="460" as="targetPoint" />
+            <mxPoint x="813" y="455" as="targetPoint" />
             <Array as="points">
               <mxPoint x="60" y="191" />
               <mxPoint x="811" y="191" />
+              <mxPoint x="811" y="450" />
+              <mxPoint x="812" y="450" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -195,10 +199,10 @@
         <mxCell id="52" value="0..*" style="text;html=1;whiteSpace=wrap;" parent="50" vertex="1">
           <mxGeometry x="1" y="0.5" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" parent="1" target="12" edge="1">
+        <mxCell id="53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;entryX=-0.007;entryY=0.631;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" target="12" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="340" y="30" as="sourcePoint" />
-            <mxPoint x="760" y="30" as="targetPoint" />
+            <mxPoint x="644" y="-35" as="targetPoint" />
             <Array as="points" />
           </mxGeometry>
         </mxCell>
