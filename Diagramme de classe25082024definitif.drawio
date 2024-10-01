@@ -71,10 +71,10 @@
           <mxGeometry x="-120" y="-300" width="180" height="80" as="geometry" />
         </mxCell>
         <mxCell id="title12" value="CatalogService" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
-          <mxGeometry x="647" y="430" width="180" height="30" as="geometry" />
+          <mxGeometry x="390" y="415" width="180" height="30" as="geometry" />
         </mxCell>
         <mxCell id="24" value="&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;id : Integer&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;name : String&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;description : String&lt;/span&gt;&lt;br style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;&lt;span style=&quot;text-align: left; text-wrap: nowrap;&quot;&gt;price : Integer&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="700" y="460" width="180" height="120" as="geometry" />
+          <mxGeometry x="411" y="455" width="180" height="120" as="geometry" />
         </mxCell>
         <mxCell id="title13" value="GymAccessory" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
           <mxGeometry x="843" y="304" width="180" height="30" as="geometry" />
@@ -87,12 +87,6 @@
         </mxCell>
         <mxCell id="28" value="&lt;div&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;coach : Coach&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;duration : Integer&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="943" y="228" width="119" height="73" as="geometry" />
-        </mxCell>
-        <mxCell id="title15" value="DietPlan" style="text;html=1;whiteSpace=wrap;fontStyle=1;" parent="1" vertex="1">
-          <mxGeometry x="414" y="430" width="180" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="30" value="id : Integer&lt;br style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;partner_company : String&lt;/span&gt;&lt;br style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;&lt;span style=&quot;text-wrap: nowrap; background-color: rgb(255, 255, 255); text-align: left;&quot;&gt;price : Integer&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="360" y="462" width="180" height="116" as="geometry" />
         </mxCell>
         <mxCell id="32" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;exitX=0.988;exitY=0.068;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="2" edge="1">
           <mxGeometry relative="1" as="geometry">
@@ -324,8 +318,14 @@
         <mxCell id="79" value="1" style="text;html=1;whiteSpace=wrap;" parent="77" vertex="1">
           <mxGeometry x="1" y="0.5" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="80" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="30" target="24" edge="1">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="80" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" target="24" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="336" y="520" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="590" y="520" />
+              <mxPoint x="590" y="520" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="81" value="0..*" style="text;html=1;whiteSpace=wrap;" parent="80" vertex="1">
           <mxGeometry y="0.5" relative="1" as="geometry" />
@@ -333,12 +333,13 @@
         <mxCell id="82" value="1" style="text;html=1;whiteSpace=wrap;" parent="80" vertex="1">
           <mxGeometry x="1" y="0.5" relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="83" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" source="30" target="2" edge="1">
+        <mxCell id="83" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;" parent="1" target="2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="320" y="520" />
               <mxPoint x="320" y="270" />
             </Array>
+            <mxPoint x="360" y="520.0588235294117" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="84" value="0..*" style="text;html=1;whiteSpace=wrap;" parent="83" vertex="1">
